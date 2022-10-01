@@ -10,7 +10,7 @@ spec:
   replicas: 3
   selector:
     matchLabels:
-      tier: frontend
+      tier: front
   template:
     metadata:
       labels:
