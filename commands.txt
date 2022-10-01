@@ -1,0 +1,33 @@
+11-kubectl get deployments = zero deployments
+11-kubectl get replicaset = zero rs 
+11-kubectl get all 
+12-kubectl apply -f deployment.yml
+13- with get rs & get deployment there are one deployment and 1 replicaset
+which consists of 3 replicas
+14- there are 3 pods within deployment-1 each replicaset has one pods
+15- after changing the image to nginx there 3 pods will be terminated and 
+3 pods will be created 
+-new replicaset will be created and the old one still exists but its has 0 replicas
+16-the events : 
+Normal  ScalingReplicaSet  5m1s   deployment-controller  Scaled up replica set deployment-1-7b475969d9 to 1
+  Normal  ScalingReplicaSet  4m57s  deployment-controller  Scaled down replica set deployment-1-577d8f57d5 to 2 from 3
+  Normal  ScalingReplicaSet  4m57s  deployment-controller  Scaled up replica set deployment-1-7b475969d9 to 2 from 1
+  Normal  ScalingReplicaSet  4m54s  deployment-controller  Scaled down replica set deployment-1-577d8f57d5 to 1 from 2
+  Normal  ScalingReplicaSet  4m54s  deployment-controller  Scaled up replica set deployment-1-7b475969d9 to 3 from 2
+  Normal  ScalingReplicaSet  4m51s  deployment-controller  Scaled down replica set deployment-1-577d8f57d5 to 0 from 1
+
+16-The StrategyType:  RollingUpdate
+17-Rollback the deployment : kubectl rollout undo deployment/deployment-1
+17- to see the history of the rollback : kubectl rollout history deployment/deployment-1
+17- to see the image fo the deployment : kubectl rollout history deployment/deployment-1  --revision=1
+the image will be busybox
+18- one the deployment file
+====================_LAB_2_===============================
+1- kubectl get namespace : 5 namespaces
+2-kubectl get pods -n kube-system : 7 pods are running within the kube-system namespace
+3-kube create namespace finance
+creating the deployment beta from the yaml file...........
+4- there is only one node whish is the master and the worker at the same time 
+-kubectl get pods -n finance : two pods
+-kubectl apply -f limitrange.yml --namespace finance
+kubectl delete deployments.apps -n finance beta

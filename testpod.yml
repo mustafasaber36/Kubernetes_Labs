@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-test
+  labels:
+    app: nginx
+spec:
+  containers:
+  - name: print-env-container
+    image: bash
